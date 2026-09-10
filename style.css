@@ -653,3 +653,74 @@ input[type="checkbox"] {
     transition: none !important;
   }
 }
+
+.topbar { position: sticky; top: 0; z-index: 10; background: #0e0e13f2; backdrop-filter: blur(16px); }
+.main-nav { display: flex; align-items: center; gap: 8px; }
+.main-nav a { padding: 10px 14px; text-decoration: none; border-radius: 9px; color: var(--muted); font-size: 14px; font-weight: 650; }
+.main-nav a:hover, .main-nav a[aria-current="page"] { color: #dbcfff; background: #2a2238; }
+.main-nav .primary { margin-left: 8px; font-size: 14px; }
+.ranking-heading { align-items: center; }
+.collection-stamp { flex-shrink: 0; width: 118px; height: 118px; display: flex; flex-direction: column; justify-content: center; text-align: center; border: 1px solid #554565; border-radius: 50%; color: var(--accent); font-size: 10px; letter-spacing: 2px; line-height: .8; }
+.collection-stamp strong { font-size: 38px; line-height: .6; letter-spacing: -2px; }
+.ranking-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 32px 0; }
+.ranking-tabs button { padding: 24px; text-align: left; background: #17171f; border: 1px solid var(--border); border-radius: 14px; color: var(--muted); display: flex; flex-direction: column; gap: 8px; }
+.ranking-tabs button[aria-pressed="true"] { background: linear-gradient(120deg, #302344, #1c1927); border-color: #9b7ace; }
+.ranking-tabs button:hover { border-color: var(--accent); }
+.ranking-tabs strong { font-size: 26px; line-height: 1.2; color: var(--text); }
+.tab-kicker { font-size: 12px; letter-spacing: 1.7px; color: var(--accent); font-weight: 650; }
+.ranking-tabs button > span:last-child { font-size: 14px; }
+.ranking-tools { display: flex; justify-content: space-between; gap: 24px; align-items: center; }
+.ranking-tools h2 { font-size: 24px; margin: 0 0 6px; }
+.ranking-tools p { color: var(--muted); font-size: 14px; margin: 0; }
+#ranking-search { max-width: 310px; background: var(--surface); font-size: 14px; }
+.source-note { color: var(--muted); font-size: 12px; margin: 16px 0 24px; }
+.source-note a, .imdb-link { color: #cebaff; text-underline-offset: 3px; }
+.ranking-summary { display: flex; justify-content: space-between; gap: 20px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); padding: 20px 0; }
+.rank-number { position: absolute; top: 12px; left: 12px; min-width: 44px; padding: 6px 10px; border: 1px solid #ffffff38; border-radius: 8px; background: #100d18e8; color: #d5c2ff; font-size: 20px; font-weight: 800; text-align: center; }
+.rank-number.podium { background: #efce86; color: #382908; border-color: #f5dca7; }
+.ranking-card { display: flex; flex-direction: column; }
+.ranking-card .card-body { flex: 1; display: flex; flex-direction: column; }
+.ranking-card .metadata { margin-bottom: 8px; }
+.catalog-title { margin: 0; font-size: 18px; line-height: 1.35; overflow-wrap: anywhere; }
+.catalog-rating, .imdb-link, .selected-movie { overflow-wrap: anywhere; }
+.catalog-add[aria-disabled="true"] { background: #1d302a; color: #9bd5bb; cursor: default; }
+#collection-title { scroll-margin-top: 165px; }
+.ranking-card .catalog-add { width: 100%; margin-top: auto; }
+.catalog-add { min-height: 42px; border-radius: 8px; padding: 10px; background: #302640; color: #decdff; font-weight: 650; font-size: 14px; }
+.catalog-add:hover { background: #443358; }
+.catalog-add:disabled { background: #1d302a; color: #9bd5bb; }
+.catalog-rating { font-size: 14px; color: #f2ca70; margin: 0 0 14px; }
+.imdb-link { display: inline-block; font-size: 12px; margin-bottom: 14px; }
+.pagination { display: flex; justify-content: center; align-items: center; gap: 24px; margin: 32px 0 0; }
+.pagination span { color: var(--muted); font-size: 14px; }
+.pagination button:disabled { opacity: .4; }
+.suggestion-field { position: relative; }
+#suggestions { position: absolute; top: calc(100% + 5px); left: 0; right: 0; z-index: 2; max-height: 290px; overflow-y: auto; padding: 5px; border: 1px solid #635076; border-radius: 10px; background: #211c2c; box-shadow: 0 15px 40px #0009; }
+.suggestion { display: flex; gap: 12px; padding: 9px; border-radius: 7px; align-items: center; cursor: pointer; }
+.suggestion[aria-selected="true"], .suggestion:hover { background: #3a2c4b; }
+.suggestion-thumb { position: relative; flex-shrink: 0; width: 38px; height: 56px; overflow: hidden; border-radius: 4px; background: #463657; }
+.suggestion-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.suggestion strong { display: block; font-size: 14px; line-height: 1.4; }
+.suggestion small { display: block; margin-top: 3px; color: #b7abc7; font-size: 12px; }
+.selected-movie { padding: 9px 12px; border: 1px solid #456154; border-radius: 8px; background: #1b2a24; color: #b2ddc7; font-size: 13px; margin: 14px 0 0; }
+@media (max-width: 760px) {
+  .topbar { padding: 15px 6%; flex-wrap: wrap; gap: 14px; }
+  .main-nav { width: 100%; justify-content: space-between; flex-wrap: wrap; }
+  .main-nav a { padding: 9px 10px; }
+  .main-nav .primary { margin-left: 0; padding: 10px 12px; }
+  .ranking-heading { flex-direction: row; }
+  .collection-stamp { display: none; }
+  .ranking-tabs { gap: 12px; }
+  .ranking-tabs button { padding: 18px; }
+  .ranking-tabs strong { font-size: 22px; }
+  .ranking-tools { align-items: stretch; flex-direction: column; gap: 16px; }
+  #ranking-search { max-width: none; }
+  .pagination { gap: 12px; }
+  .pagination button { padding: 10px 14px; }
+}
+@media (max-width: 430px) {
+  .ranking-tabs { grid-template-columns: 1fr; }
+  .ranking-tabs button { gap: 5px; }
+  .ranking-tabs strong { font-size: 24px; }
+  .ranking-summary { flex-wrap: wrap; gap: 6px; }
+}
