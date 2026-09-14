@@ -1,140 +1,143 @@
-# Aftercredits — Movie Watchlist
+# Aftercredits
 
 [English](#english) · [Polski](#polski)
 
 ## English
 
-A personal movie watchlist made with HTML, CSS and JavaScript.
+A responsive movie watchlist built with HTML, CSS and JavaScript. Discover films, record your viewing history and keep your collection on your computer or phone.
 
-### Start
+### Features
 
-1. Keep `index.html`, `style.css`, `script.js` and `movies.js` in the same folder.
-2. Open `index.html` in your browser. You can also open the folder in Visual Studio Code and use Live Server.
-3. No installation, account, API key or database is needed.
+| Feature | What you can do |
+| --- | --- |
+| Personal watchlist | Add films manually or choose suggestions while typing. |
+| Film collections | Browse 100 international and 100 Polish films with images and public scores. |
+| Ratings and favorites | Mark films watched, give 1–5 stars and save your favorites. |
+| Notes and history | Write notes, edit viewing dates and record repeat watches. |
+| Search and discovery | Search, filter, sort and randomly pick a film by genre and minimum IMDb score. |
+| Statistics | View totals, average ratings, most watched genres and monthly activity. |
+| Backups | Export and import your collection as a JSON file. |
+| Mobile support | Use the responsive layout and install the website on your home screen. |
 
-If you used the previous version, replace the files in the same folder and use the same browser and address. Your watchlist uses the same saved-data key. Opening a different file location or a different Live Server address can use separate browser storage.
+### Getting started
 
-### Add a movie
+1. Download the project and open its folder in Visual Studio Code.
+2. Keep the files below together, including the `icons` folder.
+3. Use the Live Server extension to open `index.html`.
 
-- Click **Add movie** at the top.
-- Type at least two letters of a title. Up to five suggestions appear from the two collections.
-- Click a suggestion, or use the arrow keys and Enter. The title, year, genre and image are filled in.
-- Click **Add movie** to save it. Selecting a suggestion alone does not save it.
-- You can also enter any film manually. Only the title is required.
-- Tick **I've already watched this** if you have seen the film.
+No build step, movie API key or database is required. When updating the project, keep the same browser and website address to access your existing list.
 
-Suggestions also search available alternative titles. Polish letters work with or without accents: for example, `dlug` can find `Dług`.
-
-### Explore the collections
-
-Click **Top movies** and choose **IMDb Top 100** or **100 Polish Films**. Each collection contains 100 entries, displayed on five pages of 20. Search checks the entire selected collection, including films on other pages.
-
-Click **Add to watchlist** on any card. Films already added are marked, and the same identified film cannot be added twice. Click **My watchlist** to return, or **Add movie** to return and open the form.
-
-These are saved ranking snapshots, not live popularity charts:
-
-- **International:** the first 100 places in the IMDb Top 250 order recorded by German Wikipedia on **22 July 2026**. IMDb scores are a separate snapshot retrieved through Cinemeta on **10 September 2026**. An unavailable score is omitted.
-- **Polish:** 100 titles selected in order from Filmweb's Polish ranking retrieved on **10 September 2026**. Entries labelled documentary or short film and the numbered Dekalog episodes are excluded. Titles without a verified image are also excluded. Some television films, other TV titles and international co-productions remain. The displayed numbers are positions in this selection, not the original unfiltered Filmweb positions. Scores are clearly labelled **Filmweb**, not IMDb.
-
-Filmweb sometimes lists the production year while IMDb lists a later release year. The catalogue retains available alternative years for duplicate checks.
-
-### Track and rate
-
-- Click **Mark watched** when you finish a movie.
-- Choose one to five stars to give your own rating. Click the selected rating again to clear it.
-- Your stars are separate from the public scores shown out of ten.
-- **Watch again** moves the film back to Want to watch and clears your personal rating.
-- Use the search box and All movies / Want to watch / Watched filters.
-- Click **×** to delete a film. **Undo** restores the most recently deleted film for ten seconds.
-- The average includes only watched films that you personally rated.
-
-### Saving and images
-
-The watchlist is saved in this browser using `localStorage`. It remains after refreshing, but it does not sync between devices. Clearing site data removes it. The footer warns you if saving is unavailable.
-
-Catalogue text and suggestions work without an internet connection. Remote images need internet access. All 200 catalogue entries have verified IMDb image URLs. Some older or television titles use an IMDb still instead of a theatrical poster. If an image is missing or cannot load, the card displays its title instead.
-
-### Files
+### Project files
 
 | File | Purpose |
 | --- | --- |
-| `index.html` | Page structure, navigation and movie form |
-| `style.css` | Original dark design, rankings and suggestions |
-| `script.js` | Adding, rating, saving, search, navigation and duplicate checks |
-| `movies.js` | Both 100-film collections and source information |
-| `README.md` | This guide in English and Polish |
+| `index.html` | Page structure, navigation and forms |
+| `style.css` | Dark theme and responsive layout |
+| `script.js` | Watchlist features, statistics and backups |
+| `movies.js` | Film collections and source information |
+| `manifest.webmanifest` | App name, icons and installation settings |
+| `sw.js` | Caching app files for offline use |
+| `icons/` | Browser and home screen icons |
+| `README.md` | Project documentation |
 
-To update a collection, edit its records in `movies.js`. Keep `rank`, title, year, identifiers, image URL and source details accurate. Load `movies.js` before `script.js` in the HTML. The browser does not fetch ranking data or automatically update scores.
+### Technologies
+
+HTML5, CSS3, vanilla JavaScript, `localStorage`, Web App Manifest and Service Worker. CSS Grid, Flexbox and media queries adapt the layout to different screens.
+
+### Install on your phone
+
+Publish the project to an HTTPS host, such as GitHub Pages, and open the website address on your phone.
+
+| Device | Installation |
+| --- | --- |
+| iPhone | Open in Safari → Share → Add to Home Screen → Add. |
+| Android | Open in Chrome → browser menu → Install app or Add to home screen → confirm. |
+
+Installation options depend on your browser. After the first online visit, wait for the offline-ready message in the statistics section. App pages and catalogue text can then work offline; remote images may still need internet.
+
+### Saving and scores
+
+Your list is stored in the current browser using `localStorage`. **Computer and phone lists are separate.** Export a backup and import it on another device to transfer a copy. Merging preserves existing film details; replacing overwrites the list. Clearing site data removes your saved collection.
+
+Personal ratings use **1–5 stars**. IMDb and Filmweb scores use **1–10** and remain separate. Films without IMDb scores are included in the random picker only when no minimum rating is required.
+
+### Data sources
+
+The collections are saved snapshots, not live popularity rankings. Selection rules and snapshot details are recorded in `movies.js`. Some images are film stills rather than posters.
+
+[IMDb](https://www.imdb.com/chart/top/) · [Ranking reference](https://de.wikipedia.org/wiki/IMDb_Top_250_Movies) · [Filmweb](https://www.filmweb.pl/ranking/film/country/42) · [Cinemeta](https://github.com/Stremio/cinemeta) · [Image archive](https://github.com/theapache64/top250)
+
+### Future improvements
+
+Optional synchronization between devices, custom collections and a light theme.
+
+---
 
 ## Polski
 
-Osobista lista filmów do obejrzenia, napisana w HTML, CSS i JavaScript.
+Responsywna lista filmów napisana w HTML, CSS i JavaScript. Odkrywaj filmy, zapisuj historię oglądania i korzystaj ze swojej kolekcji na komputerze lub telefonie.
+
+### Funkcje
+
+| Funkcja | Możliwości |
+| --- | --- |
+| Osobista lista | Dodawanie filmów ręcznie lub wybieranie podpowiedzi podczas wpisywania tytułu. |
+| Kolekcje filmowe | Przeglądanie 100 filmów międzynarodowych i 100 polskich wraz z obrazami i ocenami. |
+| Oceny i ulubione | Oznaczanie obejrzanych filmów, przyznawanie 1–5 gwiazdek i zapisywanie ulubionych. |
+| Notatki i historia | Zapisywanie notatek, zmienianie dat i rejestrowanie kolejnych seansów. |
+| Wyszukiwanie i odkrywanie | Wyszukiwanie, filtrowanie, sortowanie i losowanie filmu według gatunku oraz minimalnej oceny IMDb. |
+| Statystyki | Podsumowania kolekcji, średnie ocen, najczęściej oglądane gatunki i aktywność miesięczna. |
+| Kopie zapasowe | Eksportowanie i importowanie kolekcji w pliku JSON. |
+| Obsługa telefonu | Responsywny układ i instalacja strony na ekranie głównym. |
 
 ### Uruchomienie
 
-1. Umieść `index.html`, `style.css`, `script.js` i `movies.js` w jednym folderze.
-2. Otwórz `index.html` w przeglądarce. Możesz też otworzyć folder w Visual Studio Code i użyć Live Server.
-3. Nie potrzebujesz instalacji, konta, klucza API ani bazy danych.
+1. Pobierz projekt i otwórz jego folder w Visual Studio Code.
+2. Zachowaj razem wymienione poniżej pliki oraz folder `icons`.
+3. Uruchom `index.html` za pomocą rozszerzenia Live Server.
 
-Jeśli korzystasz ze starszej wersji, podmień pliki w tym samym folderze i używaj tej samej przeglądarki oraz adresu. Klucz zapisanych danych pozostaje ten sam. Inna lokalizacja pliku lub inny adres Live Server może korzystać z osobnego zapisu.
+Nie potrzebujesz kompilacji, klucza API ani bazy danych. Przy aktualizacji korzystaj z tej samej przeglądarki i tego samego adresu strony, aby zachować dostęp do zapisanej listy.
 
-### Dodawanie filmu
-
-- Kliknij **Add movie** u góry strony.
-- Wpisz co najmniej dwie litery tytułu. Pojawi się do pięciu podpowiedzi z obu kolekcji.
-- Kliknij podpowiedź albo wybierz ją strzałkami i naciśnij Enter. Tytuł, rok, gatunek i obraz zostaną uzupełnione.
-- Kliknij **Add movie**, aby zapisać film. Sam wybór podpowiedzi jeszcze go nie zapisuje.
-- Możesz też dodać dowolny film ręcznie. Wymagany jest tylko tytuł.
-- Zaznacz **I've already watched this**, jeśli film jest już obejrzany.
-
-Podpowiedzi uwzględniają dostępne alternatywne tytuły. Nie musisz wpisywać polskich znaków: na przykład `dlug` znajdzie `Dług`.
-
-### Przeglądanie kolekcji
-
-Kliknij **Top movies** i wybierz **IMDb Top 100** albo **100 Polish Films**. Każda kolekcja zawiera 100 pozycji na pięciu stronach po 20. Wyszukiwanie obejmuje całą wybraną kolekcję, również inne strony.
-
-Przycisk **Add to watchlist** dodaje film do Twojej listy. Dodane filmy są oznaczone, a rozpoznanego filmu nie można dodać drugi raz. **My watchlist** wraca do listy. **Add movie** wraca do listy i otwiera formularz.
-
-To zapisane zestawienia, a nie rankingi popularności aktualizowane na żywo:
-
-- **Kolekcja międzynarodowa:** pierwsze 100 miejsc IMDb Top 250 według zestawienia w niemieckiej Wikipedii z **22 lipca 2026 r.** Oceny IMDb pobrano osobno przez Cinemeta **10 września 2026 r.** Brakująca ocena nie jest wyświetlana.
-- **Kolekcja polska:** 100 tytułów wybranych w kolejności z polskiego rankingu Filmwebu pobranego **10 września 2026 r.** Pominięto pozycje oznaczone jako dokumentalne lub krótkometrażowe oraz numerowane odcinki Dekalogu. Pominięto też pozycje bez zweryfikowanego obrazu. Pozostają niektóre filmy i inne tytuły telewizyjne oraz koprodukcje międzynarodowe. Numery oznaczają miejsce w tej kolekcji, a nie w pełnym rankingu Filmwebu. Oceny mają oznaczenie **Filmweb**, nie IMDb.
-
-Filmweb czasem podaje rok produkcji, a IMDb późniejszy rok premiery. Dostępne alternatywne lata pomagają wykrywać duplikaty.
-
-### Oglądanie i ocenianie
-
-- Kliknij **Mark watched**, gdy obejrzysz film.
-- Wybierz od jednej do pięciu gwiazdek. Ponowne kliknięcie wybranej oceny usuwa ją.
-- Twoje gwiazdki są oddzielone od publicznych ocen w skali do dziesięciu.
-- **Watch again** przenosi film do planowanych i usuwa Twoją ocenę.
-- Korzystaj z wyszukiwarki oraz filtrów All movies / Want to watch / Watched.
-- **×** usuwa film. Przycisk **Undo** przez dziesięć sekund przywraca ostatnio usunięty film.
-- Średnia obejmuje tylko obejrzane filmy, które oceniasz własnymi gwiazdkami.
-
-### Zapis i obrazy
-
-Lista zapisuje się w tej przeglądarce przez `localStorage`. Odświeżenie jej nie usuwa, ale dane nie synchronizują się między urządzeniami. Wyczyszczenie danych strony usuwa listę. Stopka informuje, gdy zapis nie jest dostępny.
-
-Tekst kolekcji i podpowiedzi działają bez internetu. Zdalne obrazy wymagają połączenia. Wszystkie 200 pozycji ma zweryfikowany adres obrazu IMDb. Niektóre starsze lub telewizyjne tytuły używają kadru z IMDb zamiast plakatu kinowego. Jeśli obraz nie istnieje lub nie może się załadować, karta pokazuje tytuł filmu.
-
-### Pliki
+### Pliki projektu
 
 | Plik | Zastosowanie |
 | --- | --- |
-| `index.html` | Układ strony, nawigacja i formularz |
-| `style.css` | Ciemny wygląd, rankingi i podpowiedzi |
-| `script.js` | Dodawanie, oceny, zapis, wyszukiwanie i sprawdzanie duplikatów |
-| `movies.js` | Dwie kolekcje po 100 filmów i informacje o źródłach |
-| `README.md` | Instrukcja po angielsku i po polsku |
+| `index.html` | Układ strony, nawigacja i formularze |
+| `style.css` | Ciemny motyw i responsywny układ |
+| `script.js` | Funkcje listy, statystyki i kopie zapasowe |
+| `movies.js` | Kolekcje filmów i informacje o źródłach |
+| `manifest.webmanifest` | Nazwa aplikacji, ikony i ustawienia instalacji |
+| `sw.js` | Zapisywanie plików aplikacji do działania bez internetu |
+| `icons/` | Ikony przeglądarki i ekranu głównego |
+| `README.md` | Dokumentacja projektu |
 
-Aby zaktualizować kolekcję, edytuj rekordy w `movies.js`. Zachowaj poprawne numery, tytuły, lata, identyfikatory, adresy obrazów i źródła. W HTML plik `movies.js` musi być przed `script.js`. Przeglądarka nie pobiera nowych rankingów ani nie aktualizuje ocen automatycznie.
+### Technologie
 
-## Sources / Źródła
+HTML5, CSS3, czysty JavaScript, `localStorage`, manifest aplikacji internetowej i mechanizm obsługi pracy bez połączenia. Siatka CSS, układ elastyczny i zapytania medialne dopasowują stronę do wielkości ekranu.
 
-- [IMDb Top 250](https://www.imdb.com/chart/top/)
-- [Ranking order reference: Wikipedia, 22 July 2026 snapshot](https://de.wikipedia.org/wiki/IMDb_Top_250_Movies)
-- [Filmweb Polish ranking](https://www.filmweb.pl/ranking/film/country/42)
-- [Cinemeta](https://github.com/Stremio/cinemeta): provider of the retrieved IMDb scores.
-- [theapache64/top250](https://github.com/theapache64/top250): archived IMDb title identifiers and image URLs; its old scores are not used.
-- IMDb's public suggestion metadata supplied additional verified title identities and images. Individual film and image source details are included in `movies.js`.
+### Instalacja na telefonie
+
+Opublikuj projekt na serwerze obsługującym HTTPS, np. w GitHub Pages, i otwórz adres strony na telefonie.
+
+| Urządzenie | Instalacja |
+| --- | --- |
+| iPhone | Otwórz w Safari → Udostępnij → Do ekranu początkowego → Dodaj. |
+| Android | Otwórz w Chrome → menu przeglądarki → Zainstaluj aplikację lub Dodaj do ekranu głównego → potwierdź. |
+
+Dostępne opcje zależą od przeglądarki. Po pierwszym wejściu z internetem poczekaj na komunikat gotowości do pracy bez połączenia w części ze statystykami. Strona i tekst kolekcji mogą wtedy działać bez internetu; zdalne obrazy mogą nadal wymagać połączenia.
+
+### Zapis i oceny
+
+Lista jest zapisywana w bieżącej przeglądarce za pomocą `localStorage`. **Komputer i telefon mają osobne listy.** Wyeksportuj kopię i zaimportuj ją na drugim urządzeniu, aby przenieść dane. Łączenie zachowuje informacje o istniejących filmach, a zastępowanie nadpisuje listę. Wyczyszczenie danych strony usuwa zapisaną kolekcję.
+
+Twoje oceny mają skalę **1–5 gwiazdek**. Oceny IMDb i Filmwebu mają skalę **1–10** i pozostają oddzielne. Filmy bez oceny IMDb są uwzględniane w losowaniu tylko wtedy, gdy nie ustawiono minimalnej oceny.
+
+### Źródła danych
+
+Kolekcje są zapisanymi zestawieniami, a nie rankingami popularności aktualizowanymi na żywo. Zasady wyboru i informacje o datach zestawień znajdują się w `movies.js`. Niektóre obrazy są kadrami zamiast plakatów.
+
+[IMDb](https://www.imdb.com/chart/top/) · [Źródło kolejności](https://de.wikipedia.org/wiki/IMDb_Top_250_Movies) · [Filmweb](https://www.filmweb.pl/ranking/film/country/42) · [Cinemeta](https://github.com/Stremio/cinemeta) · [Archiwum obrazów](https://github.com/theapache64/top250)
+
+### Plany rozwoju
+
+Opcjonalna synchronizacja między urządzeniami, własne kolekcje i jasny motyw.

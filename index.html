@@ -1,153 +1,435 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Save movies, track what you watch, and rate your favorites.">
-  <title>Aftercredits · Movie Watchlist</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="movies.js" defer></script>
-  <script src="script.js" defer></script>
-</head>
-<body>
-  <header class="topbar">
-    <a class="brand" href="#watchlist"><span class="brand-icon" aria-hidden="true">▶</span> aftercredits<span class="brand-dot">.</span></a>
-    <nav class="main-nav" aria-label="Main navigation">
-      <a href="#watchlist" data-view="watchlist" aria-current="page">My watchlist</a>
-      <a href="#rankings" data-view="rankings">★ Top movies</a>
-      <button class="primary" id="nav-add" type="button">＋ Add movie</button>
-    </nav>
-  </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#0e0e13" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <link rel="manifest" href="manifest.webmanifest" />
+        <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="icons/icon-192.png" />
+        <meta
+            name="description"
+            content="Your personal movie watchlist. Save films, track what you watch, and rate your favorites."
+        />
+        <title>Aftercredits · Movie Watchlist</title>
+        <link rel="stylesheet" href="style.css" />
+        <script src="movies.js" defer></script>
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <header class="topbar">
+            <a class="brand" href="#watchlist">
+                <span class="brand-icon" aria-hidden="true">▶</span>
+                aftercredits
+                <span class="brand-dot">.</span>
+            </a>
+            <nav class="main-nav" aria-label="Main navigation">
+                <a href="#watchlist" data-view="watchlist" aria-current="page">My watchlist</a>
+                <a href="#rankings" data-view="rankings">★ Top movies</a>
+                <a href="#tonight" data-view="tonight">Tonight</a>
+                <a href="#insights" data-view="insights">My stats</a>
+                <button class="primary" id="nav-add" type="button">＋ Add movie</button>
+            </nav>
+        </header>
 
-  <main>
-    <div id="watchlist-view">
-    <section class="heading">
-      <div>
-        <p class="eyebrow">THE NEXT GREAT WATCH STARTS HERE</p>
-        <h1>My watchlist<span>.</span></h1>
-        <p>Keep the must-sees. Rate the unforgettable.</p>
-      </div>
-      <button class="primary" id="add-button" type="button">＋ Add movie</button>
-    </section>
+        <main>
+            <div id="watchlist-view">
+                <section class="heading">
+                    <div>
+                        <p class="eyebrow">THE NEXT GREAT WATCH STARTS HERE</p>
+                        <h1>
+                            My watchlist
+                            <span>.</span>
+                        </h1>
+                        <p>Keep the must-sees. Rate the unforgettable.</p>
+                    </div>
+                    <button class="primary" id="add-button" type="button">＋ Add movie</button>
+                </section>
 
-    <section class="stats" aria-label="Collection statistics">
-      <div>
-        <span>Total movies</span>
-        <strong id="total-count">0</strong>
-      </div>
-      <div>
-        <span>Want to watch</span>
-        <strong id="pending-count">0</strong>
-      </div>
-      <div>
-        <span>Watched</span>
-        <strong id="watched-count">0</strong>
-      </div>
-      <div>
-        <span>Average rating</span>
-        <strong class="average">
-          <span aria-hidden="true">★</span>
-          <span id="average-rating">—</span>
-          <small>/ 5</small>
-        </strong>
-      </div>
-    </section>
+                <section class="stats" aria-label="Collection statistics">
+                    <div>
+                        <span>Total movies</span>
+                        <strong id="total-count">0</strong>
+                    </div>
+                    <div>
+                        <span>Want to watch</span>
+                        <strong id="pending-count">0</strong>
+                    </div>
+                    <div>
+                        <span>Watched</span>
+                        <strong id="watched-count">0</strong>
+                    </div>
+                    <div>
+                        <span>Average rating</span>
+                        <strong class="average">
+                            <span aria-hidden="true">★</span>
+                            <span id="average-rating">—</span>
+                            <small>/ 5</small>
+                        </strong>
+                    </div>
+                </section>
 
-    <section class="collection" aria-label="Your movies">
-      <div class="toolbar">
-        <div class="filters" role="group" aria-label="Filter movies">
-          <button type="button" data-filter="all" aria-pressed="true">All movies</button>
-          <button type="button" data-filter="pending" aria-pressed="false">Want to watch</button>
-          <button type="button" data-filter="watched" aria-pressed="false">Watched</button>
+                <section class="collection" aria-label="Your movies">
+                    <div class="toolbar">
+                        <div class="filters" role="group" aria-label="Filter movies">
+                            <button type="button" data-filter="all" aria-pressed="true">
+                                All movies
+                            </button>
+                            <button type="button" data-filter="pending" aria-pressed="false">
+                                Want to watch
+                            </button>
+                            <button type="button" data-filter="watched" aria-pressed="false">
+                                Watched
+                            </button>
+                            <button type="button" data-filter="favorites" aria-pressed="false">
+                                ♥ Favorites
+                            </button>
+                        </div>
+                        <input
+                            id="search"
+                            type="search"
+                            placeholder="Search your movies…"
+                            aria-label="Search movies by title"
+                        />
+                    </div>
+                    <div class="list-options">
+                        <label>
+                            Genre
+                            <select id="watchlist-genre">
+                                <option value="">Any genre</option>
+                            </select>
+                        </label>
+                        <label>
+                            Sort by
+                            <select id="watchlist-sort">
+                                <option value="newest">Recently added</option>
+                                <option value="title">Title A–Z</option>
+                                <option value="year">Newest release</option>
+                                <option value="imdb">Highest IMDb score</option>
+                                <option value="personal">Your highest rating</option>
+                            </select>
+                        </label>
+                    </div>
+                    <p id="result-count" class="result-count" aria-live="polite"></p>
+                    <div id="movie-list" class="movie-grid"></div>
+                    <div id="empty-state" class="empty-state">
+                        <span class="empty-icon" aria-hidden="true">＋</span>
+                        <h2 id="empty-title">Your next favorite is waiting.</h2>
+                        <p id="empty-description">Add a movie to start your collection.</p>
+                        <button class="primary" id="empty-add" type="button">
+                            ＋ Add your first movie
+                        </button>
+                    </div>
+                </section>
+            </div>
+            <section id="rankings-view" hidden aria-labelledby="rankings-title">
+                <div class="heading ranking-heading">
+                    <div>
+                        <p class="eyebrow">LESS SCROLLING. MORE GREAT CINEMA.</p>
+                        <h1 id="rankings-title" tabindex="-1">
+                            Find your next film
+                            <span>.</span>
+                        </h1>
+                        <p>
+                            Two collections. One hundred films each. Your next movie night, sorted.
+                        </p>
+                    </div>
+                    <span class="collection-stamp">
+                        THE
+                        <br />
+                        <strong>100</strong>
+                        <br />
+                        COLLECTIONS
+                    </span>
+                </div>
+                <div class="ranking-tabs" role="group" aria-label="Choose a movie collection">
+                    <button type="button" data-collection="international" aria-pressed="true">
+                        <span class="tab-kicker">AROUND THE WORLD</span>
+                        <strong>IMDb Top 100</strong>
+                        <span>From the IMDb Top 250</span>
+                    </button>
+                    <button type="button" data-collection="polish" aria-pressed="false">
+                        <span class="tab-kicker">MADE IN POLAND</span>
+                        <strong>100 Polish Films</strong>
+                        <span>Discover Polish cinema</span>
+                    </button>
+                </div>
+                <div class="ranking-tools">
+                    <div>
+                        <h2 id="collection-title">IMDb Top 100</h2>
+                        <p id="collection-description"></p>
+                    </div>
+                    <input
+                        id="ranking-search"
+                        type="search"
+                        placeholder="Find a film in this collection…"
+                        aria-label="Search the selected collection"
+                    />
+                </div>
+                <p class="source-note" id="ranking-source"></p>
+                <div class="ranking-summary">
+                    <span id="ranking-count" aria-live="polite"></span>
+                    <span id="collection-progress"></span>
+                </div>
+                <div id="ranking-list" class="movie-grid ranking-grid"></div>
+                <p id="ranking-empty" class="empty-state" hidden>
+                    No films match your search. Try a different title.
+                </p>
+                <div class="pagination" aria-label="Collection pages">
+                    <button id="previous-page" class="secondary" type="button">← Previous</button>
+                    <span id="page-info" aria-live="polite"></span>
+                    <button id="next-page" class="secondary" type="button">Next →</button>
+                </div>
+            </section>
+            <section id="tonight-view" hidden aria-labelledby="tonight-title">
+                <div class="heading">
+                    <div>
+                        <p class="eyebrow">MAKE IT A MOVIE NIGHT</p>
+                        <h1 id="tonight-title">
+                            What should I watch
+                            <span>?</span>
+                        </h1>
+                        <p>A little less choosing. A little more cinema.</p>
+                    </div>
+                </div>
+                <div class="picker-layout">
+                    <form id="picker-form" class="surface picker-controls">
+                        <label for="picker-source">Choose from</label>
+                        <select id="picker-source">
+                            <option value="saved">My watchlist</option>
+                            <option value="all">My watchlist + both collections</option>
+                            <option value="international">International collection</option>
+                            <option value="polish">Polish collection</option>
+                        </select>
+                        <label for="picker-genre">Genre</label>
+                        <select id="picker-genre">
+                            <option value="">Any genre</option>
+                        </select>
+                        <label for="picker-rating">Minimum IMDb rating</label>
+                        <select id="picker-rating">
+                            <option value="0">Any rating</option>
+                            <option value="6">6.0+</option>
+                            <option value="7">7.0+</option>
+                            <option value="7.5" selected>7.5+</option>
+                            <option value="8">8.0+</option>
+                            <option value="8.5">8.5+</option>
+                            <option value="9">9.0+</option>
+                        </select>
+                        <label class="checkbox-label">
+                            <input id="picker-unwatched" type="checkbox" checked />
+                            Only unwatched
+                        </label>
+                        <button class="primary" type="submit">Pick a movie</button>
+                        <p id="picker-count" class="field-help" aria-live="polite"></p>
+                        <p class="field-help">
+                            Films without an IMDb score are included only with “Any rating”. Filmweb
+                            scores are kept separate.
+                        </p>
+                    </form>
+                    <div id="tonight-result" class="surface tonight-result" aria-live="polite">
+                        <span class="eyebrow">TONIGHT’S PICK</span>
+                        <h2>Let the next film find you.</h2>
+                        <p>Set your preferences and press Pick a movie.</p>
+                    </div>
+                </div>
+            </section>
+            <section id="insights-view" hidden aria-labelledby="insights-title">
+                <div class="heading">
+                    <div>
+                        <p class="eyebrow">YOUR LIFE IN FILMS</p>
+                        <h1 id="insights-title">
+                            My stats
+                            <span>.</span>
+                        </h1>
+                        <p>The films you save, love, and come back to.</p>
+                    </div>
+                </div>
+                <div id="insights-grid" class="insights-grid"></div>
+                <p class="field-help">
+                    Monthly totals count films with a recorded viewing date. Older watched films
+                    with unknown dates are not assigned to a month.
+                </p>
+                <div class="settings-grid">
+                    <section class="surface">
+                        <h2>Keep your collection safe</h2>
+                        <p>Export a backup, then import it on your phone or computer.</p>
+                        <div class="backup-actions">
+                            <button id="export-backup" class="primary" type="button">
+                                Export backup
+                            </button>
+                            <button id="import-backup" class="secondary" type="button">
+                                Import backup
+                            </button>
+                        </div>
+                        <input
+                            id="backup-file"
+                            type="file"
+                            accept=".json,application/json"
+                            hidden
+                        />
+                        <p id="backup-status" role="status" class="field-help"></p>
+                        <p class="field-help">
+                            Your phone and computer save separate lists. Importing a backup
+                            transfers a copy; it does not turn on syncing.
+                        </p>
+                    </section>
+                    <section class="surface">
+                        <h2>Make it your movie app</h2>
+                        <p id="install-help">
+                            On iPhone, open this site in Safari, tap Share, then Add to Home Screen.
+                            On Android, use your browser’s Install app or Add to Home screen menu.
+                        </p>
+                        <button id="install-app" class="primary" type="button" hidden>
+                            Install Aftercredits
+                        </button>
+                        <p id="offline-status" class="field-help">
+                            Installation and offline support require an HTTPS website. Posters may
+                            still need internet.
+                        </p>
+                    </section>
+                </div>
+            </section>
+            <footer>
+                <span>Made for movie nights.</span>
+                <span id="storage-status">Saved on this device · Back up in My stats</span>
+            </footer>
+        </main>
+
+        <dialog id="movie-dialog" aria-labelledby="dialog-title">
+            <form id="movie-form">
+                <div class="dialog-heading">
+                    <div>
+                        <p class="eyebrow">MAKE ROOM FOR A GOOD FILM</p>
+                        <h2 id="dialog-title">Add a movie</h2>
+                    </div>
+                    <button class="close-button" id="close-dialog" type="button" aria-label="Close">
+                        ×
+                    </button>
+                </div>
+                <label for="title">
+                    Movie title
+                    <span class="required">*</span>
+                </label>
+                <div class="suggestion-field">
+                    <input
+                        id="title"
+                        name="title"
+                        placeholder="Start typing a movie title…"
+                        maxlength="120"
+                        required
+                        autofocus
+                        autocomplete="off"
+                        role="combobox"
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-controls="suggestions"
+                        aria-describedby="suggestion-help"
+                    />
+                    <div id="suggestions" role="listbox" aria-label="Suggested movies" hidden></div>
+                </div>
+                <p id="suggestion-help" class="field-help">
+                    Type at least 2 letters to search both collections, or add your own film.
+                </p>
+                <p id="selected-movie" class="selected-movie" hidden></p>
+                <div class="form-row">
+                    <div>
+                        <label for="year">Year</label>
+                        <input
+                            id="year"
+                            name="year"
+                            type="number"
+                            min="1888"
+                            max="2100"
+                            step="1"
+                            placeholder="2014"
+                        />
+                    </div>
+                    <div>
+                        <label for="genre">Genre</label>
+                        <input id="genre" name="genre" maxlength="50" placeholder="e.g. Sci-Fi" />
+                    </div>
+                </div>
+                <label for="poster">
+                    Poster URL
+                    <span class="optional">optional</span>
+                </label>
+                <input
+                    id="poster"
+                    name="poster"
+                    type="url"
+                    maxlength="2000"
+                    placeholder="https://…"
+                />
+                <p class="field-help">Paste a direct image link, or leave this blank.</p>
+                <label class="checkbox-label">
+                    <input id="already-watched" name="watched" type="checkbox" />
+                    I've already watched this
+                </label>
+                <div class="dialog-actions">
+                    <button class="secondary" id="cancel-dialog" type="button">Cancel</button>
+                    <button class="primary" type="submit">Add movie</button>
+                </div>
+            </form>
+        </dialog>
+        <dialog id="details-dialog" aria-labelledby="details-title">
+            <form id="details-form">
+                <div class="dialog-heading">
+                    <h2 id="details-title">Movie details</h2>
+                    <button
+                        class="close-button"
+                        id="close-details"
+                        type="button"
+                        aria-label="Close details"
+                    >
+                        ×
+                    </button>
+                </div>
+                <p id="details-history" class="field-help"></p>
+                <label for="details-date">Last watched date</label>
+                <input id="details-date" type="date" />
+                <p class="field-help">Leave blank if the date is unknown.</p>
+                <label for="details-notes">Your notes</label>
+                <textarea
+                    id="details-notes"
+                    rows="5"
+                    maxlength="2000"
+                    placeholder="A favorite scene, a thought, a reason to watch again…"
+                ></textarea>
+                <div class="backup-actions">
+                    <button id="log-rewatch" class="secondary" type="button">
+                        Log another watch today
+                    </button>
+                </div>
+                <div class="dialog-actions">
+                    <button id="cancel-details" class="secondary" type="button">Cancel</button>
+                    <button class="primary" type="submit">Save details</button>
+                </div>
+            </form>
+        </dialog>
+        <dialog id="import-dialog" aria-labelledby="import-title">
+            <form id="import-form">
+                <h2 id="import-title">Import your backup</h2>
+                <p id="import-summary"></p>
+                <label for="import-mode">Import method</label>
+                <select id="import-mode">
+                    <option value="merge">Merge — keep my existing films</option>
+                    <option value="replace">Replace my entire watchlist</option>
+                </select>
+                <p id="import-warning" class="field-help">
+                    Matching films already saved here keep their current notes, ratings, and
+                    history.
+                </p>
+                <div class="dialog-actions">
+                    <button id="cancel-import" type="button" class="secondary">Cancel</button>
+                    <button type="submit" class="primary">Import films</button>
+                </div>
+            </form>
+        </dialog>
+        <div id="toast" class="toast" role="status" hidden>
+            <span id="toast-message"></span>
+            <button id="undo-button" type="button" hidden>Undo</button>
         </div>
-        <input
-          id="search"
-          type="search"
-          placeholder="Search your movies…"
-          aria-label="Search movies by title"
-        >
-      </div>
-
-      <p id="result-count" class="result-count" aria-live="polite"></p>
-      <div id="movie-list" class="movie-grid"></div>
-
-      <div id="empty-state" class="empty-state">
-        <span class="empty-icon" aria-hidden="true">＋</span>
-        <h2 id="empty-title">Your next favorite is waiting.</h2>
-        <p id="empty-description">Add a movie to start your collection.</p>
-        <button class="primary" id="empty-add" type="button">＋ Add your first movie</button>
-      </div>
-    </section>
-    </div>
-    <section id="rankings-view" hidden aria-labelledby="rankings-title">
-      <div class="heading ranking-heading">
-        <div><p class="eyebrow">LESS SCROLLING. MORE GREAT CINEMA.</p><h1 id="rankings-title" tabindex="-1">Find your next film<span>.</span></h1><p>Two collections. One hundred films each. Your next movie night, sorted.</p></div>
-        <span class="collection-stamp">THE<br><strong>100</strong><br>COLLECTIONS</span>
-      </div>
-      <div class="ranking-tabs" role="group" aria-label="Choose a movie collection">
-        <button type="button" data-collection="international" aria-pressed="true"><span class="tab-kicker">AROUND THE WORLD</span><strong>IMDb Top 100</strong><span>From the IMDb Top 250</span></button>
-        <button type="button" data-collection="polish" aria-pressed="false"><span class="tab-kicker">MADE IN POLAND</span><strong>100 Polish Films</strong><span>Discover Polish cinema</span></button>
-      </div>
-      <div class="ranking-tools"><div><h2 id="collection-title">IMDb Top 100</h2><p id="collection-description"></p></div><input id="ranking-search" type="search" placeholder="Find a film in this collection…" aria-label="Search the selected collection"></div>
-      <p class="source-note" id="ranking-source"></p>
-      <div class="ranking-summary"><span id="ranking-count" aria-live="polite"></span><span id="collection-progress"></span></div>
-      <div id="ranking-list" class="movie-grid ranking-grid"></div>
-      <p id="ranking-empty" class="empty-state" hidden>No films match your search. Try a different title.</p>
-      <div class="pagination" aria-label="Collection pages"><button id="previous-page" class="secondary" type="button">← Previous</button><span id="page-info" aria-live="polite"></span><button id="next-page" class="secondary" type="button">Next →</button></div>
-    </section>
-    <footer>
-      <span>Made for movie nights.</span>
-      <span id="storage-status">Saved in this browser · No account needed</span>
-    </footer>
-  </main>
-
-  <dialog id="movie-dialog" aria-labelledby="dialog-title">
-    <form id="movie-form">
-      <div class="dialog-heading">
-        <div>
-          <p class="eyebrow">MAKE ROOM FOR A GOOD FILM</p>
-          <h2 id="dialog-title">Add a movie</h2>
-        </div>
-        <button class="close-button" id="close-dialog" type="button" aria-label="Close">×</button>
-      </div>
-
-      <label for="title">Movie title <span class="required">*</span></label>
-      <div class="suggestion-field">
-        <input id="title" name="title" placeholder="Start typing a movie title…" maxlength="120" required autofocus autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="suggestions" aria-describedby="suggestion-help">
-        <div id="suggestions" role="listbox" aria-label="Suggested movies" hidden></div>
-      </div>
-      <p id="suggestion-help" class="field-help">Type at least 2 letters to search both collections, or add your own film.</p>
-      <p id="selected-movie" class="selected-movie" hidden></p>
-      <div class="form-row">
-        <div>
-          <label for="year">Year</label>
-          <input id="year" name="year" type="number" min="1888" max="2100" step="1" placeholder="2014">
-        </div>
-        <div>
-          <label for="genre">Genre</label>
-          <input id="genre" name="genre" maxlength="50" placeholder="e.g. Sci-Fi">
-        </div>
-      </div>
-
-      <label for="poster">Poster URL <span class="optional">optional</span></label>
-      <input id="poster" name="poster" type="url" maxlength="2000" placeholder="https://…">
-      <p class="field-help">Paste a direct image link, or leave this blank.</p>
-
-      <label class="checkbox-label">
-        <input id="already-watched" name="watched" type="checkbox">
-        I've already watched this
-      </label>
-
-      <div class="dialog-actions">
-        <button class="secondary" id="cancel-dialog" type="button">Cancel</button>
-        <button class="primary" type="submit">Add movie</button>
-      </div>
-    </form>
-  </dialog>
-
-  <div id="toast" class="toast" role="status" hidden>
-    <span id="toast-message"></span>
-    <button id="undo-button" type="button" hidden>Undo</button>
-  </div>
-</body>
+    </body>
 </html>
